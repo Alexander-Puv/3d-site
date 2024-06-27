@@ -1,43 +1,52 @@
-import { Link } from "react-router-dom"
-import {arrow} from '../assets/icons'
+import { useState } from 'react'
+import { arrow } from '../assets/icons'
 
-const InfoBox = ({text, link, btnText}) => (
-  <div className="info-box">
-    <p className="font-medium sm:text-xl text-center">{text}</p>
-    <Link to={link} className="neo-brutalism-white neo-btn">
-      {btnText}
-      <img src={arrow} className="w-4 h-4 object-contain" />
-    </Link>
-  </div>
-)
+const InfoBox = ({text, btnText, onMouseEnter}) => {
+  const [visible, setVisible] = useState(false)
+
+  return (
+    <div className="info-box">
+      <p className="font-medium sm:text-xl text-center">{text}</p>
+      <button
+        className="neo-brutalism-white neo-btn"
+        onMouseEnter={() => onMouseEnter && setVisible(true)}
+        onMouseLeave={() => setVisible(false)}
+      >
+        {btnText}
+        <img src={arrow} className="w-4 h-4 object-contain" />
+        {visible && <div className="absolute -bottom-full p-2 bg-black overflow-hidden">
+          Me neither
+        </div>}
+      </button>
+    </div>
+  )
+}
 
 const renderContent = {
   1: (
     <h1 className="sm:text-xl sm:leading-snug text-center neo-brutalism-blue py-4 px-8 text-white mx-5">
       Hi, I am <span className="font-semibold"><span className="line-through">Satan, The Lord of Hell</span> Alexander</span> 👋
       <br />
-      A Software Engineer from Russia
+      And this is... Somthing!
     </h1>
   ),
   2: (
     <InfoBox
-      text="Worked on some cool projects, I promise"
-      link='/about'
-      btnText='Learn more'
+      text="wow, look, these are popups that appear when you fly over a certain place!"
+      btnText='Cool!'
     />
   ),
   3: (
     <InfoBox
-      text="Oh, mein lieber Freund, ich bin so froh, dass du hier bist. Deshalb habe ich dich das übersetzen lassen"
-      link='/projects'
-      btnText='Visit my portfolio'
+      text="But why are there buttons?.."
+      btnText="IDK"
+      onMouseEnter
     />
   ),
   4: (
     <InfoBox
-      text="YEAS, the best dev for you is me! Don't like somthing in my text? Just don't give me the copywriter job"
-      link='/contact'
-      btnText='Contact me'
+      text="Oh, wow, another popup..."
+      btnText='Button!'
     />
   ),
 }
